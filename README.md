@@ -1,3 +1,24 @@
+
+# React Gallery App
+
+## Summary
+
+An image gallery app built with React, using the flicker API. The app displays a default page with a number of images pulled from the flicker API. Users can use the search bar to look for other images or they can click on the navigation links to view a particular category of image.
+
+## Features 
+
+* Search bar
+* Routing/navigation
+* Custom 404 page
+* Custom no image match message
+
+
+## Instructions to integrate flicker API key
+
+If you are testing this project you'll need to create a config.js file within the src directory. Within the config.js file create a variable apiKey (const apiKey ='your api key here'). Then at the bottom of the file export the apiKey variable (export default apiKey;). This will allow the app to access your api key for testing.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
