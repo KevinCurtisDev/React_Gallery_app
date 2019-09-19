@@ -1,6 +1,8 @@
 
 # React Gallery App
 
+<img src="https://github.com/KevinCurtisDev/React_Gallery_app/blob/master/public/images/image-gallery.png" style="width: 800px; max-width: 100%; height: auto; margin: 0 auto">
+
 ## Summary
 
 An image gallery app built with React, using the flicker API. The app displays a default page with a number of images pulled from the flicker API. Users can use the search bar to look for other images or they can click on the navigation links to view a particular category of image.
