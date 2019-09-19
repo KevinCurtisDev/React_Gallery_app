@@ -115,7 +115,7 @@ class App extends Component {
                   <Route path="/flowers" render={ () => <Results pics={this.state.flowers} heading={"Flowers"}/> } />
                   <Route path="/trees" render={ () => <Results  pics={this.state.trees} heading={"Trees"}/> } />
                   <Route path="/sunset" render={ () => <Results pics={this.state.sunsets} heading={"Sunsets"}/> } />
-                  <Route path="/search/:name" render={ () => <Results onSearch={this.searchImages} pics={this.state.images} heading={"Results"}/> } />
+                  <Route path="/search" render={ () => <Results onSearch={this.searchImages} pics={this.state.images} heading={"Results"}/> } />
                   <Route component={NoMatch} />
                 </Switch>
             </div>}
