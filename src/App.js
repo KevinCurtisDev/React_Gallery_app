@@ -27,17 +27,21 @@ class App extends Component {
     }
   }
 
+  //During the component did mount phase f the lifecycle fetch an array of images for each preset photo selection
   componentDidMount() {
     this.searchFlowers();
     this.searchTrees();
     this.searchSunsets();
   }
 
+  //Generic search function used to fetch images that are searched for in the search bar
   searchImages = query => {
+    //Use axios to connect and form a get request from the flickr API
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&format=json&nojsoncallback=1&text=${query}&per_page=12`)
           .then(response => {
               this.setState({
                   images: response.data.photos.photo,
+                  //Set loading to false once images have been loaded in or no images have matched
                   loading: false
               })
           })
@@ -46,11 +50,14 @@ class App extends Component {
           })
   }
 
+  //A function that specifically searches for flowers
   searchFlowers = (query = "flowers") => {
+    //Use axios to connect and form a get request from the flickr API
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&format=json&nojsoncallback=1&text=${query}&per_page=12`)
           .then(response => {
               this.setState({
                   flowers: response.data.photos.photo,
+                  //Set loading to false once images have been loaded in or no images have matched
                   loading: false
               })
           })
@@ -59,11 +66,14 @@ class App extends Component {
           })
   }
 
+  //A function that specifically searches for Trees
   searchTrees = (query = "trees") => {
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&format=json&nojsoncallback=1&text=${query}&per_page=12`)
           .then(response => {
               this.setState({
+                  //Use axios to connect and form a get request from the flickr API
                   trees: response.data.photos.photo,
+                  //Set loading to false once images have been loaded in or no images have matched
                   loading: false
               })
           })
@@ -72,11 +82,14 @@ class App extends Component {
           })
   }
 
+  //A function that specifically searches for sunsets
   searchSunsets = (query = "sunset") => {
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&format=json&nojsoncallback=1&text=${query}&per_page=12`)
           .then(response => {
               this.setState({
+                  //Use axios to connect and form a get request from the flickr API
                   sunsets: response.data.photos.photo,
+                  //Set loading to false once images have been loaded in or no images have matched
                   loading: false
               })
           })
@@ -90,18 +103,22 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-        <SearchBar onSearch={this.searchImages}/>
-        <Navigation />
-          <div className="App">
-              <Switch>
-                <Route exact path="/" render={ () => this.state.loading? <p>Loading......</p> : <Redirect  to="/flowers" /> } />
-                <Route path="/flowers" render={ () => this.state.loading? <p>Loading......</p> : <Results pics={this.state.flowers} heading={"Flowers"}/> } />
-                <Route path="/trees" render={ () => this.state.loading? <p>Loading......</p> : <Results  pics={this.state.trees} heading={"Trees"}/> } />
-                <Route path="/sunset" render={ () => this.state.loading? <p>Loading......</p> : <Results  pics={this.state.sunsets} heading={"Sunsets"}/> } />
-                <Route path="/search/:name" render={ () => this.state.loading? <p>Loading......</p> : <Results onSearch={this.searchImages} pics={this.state.images} heading={"Results"}/> } />
-                <Route component={NoMatch} />
-              </Switch>
-          </div>
+          {/* Include the search bar on each page */}
+          <SearchBar onSearch={this.searchImages}/>
+          {/* Include the navigation menu on each page */}
+          <Navigation />
+          {/* Render a loading paragraph while waiting for imagaes to populate */}
+          {(this.state.loading) ? <p>Loading......</p> 
+          : <div className="App">
+                <Switch>
+                  <Route exact path="/" render={ () => <Redirect  to="/flowers" /> } />
+                  <Route path="/flowers" render={ () => <Results pics={this.state.flowers} heading={"Flowers"}/> } />
+                  <Route path="/trees" render={ () => <Results  pics={this.state.trees} heading={"Trees"}/> } />
+                  <Route path="/sunset" render={ () => <Results pics={this.state.sunsets} heading={"Sunsets"}/> } />
+                  <Route path="/search/:name" render={ () => <Results onSearch={this.searchImages} pics={this.state.images} heading={"Results"}/> } />
+                  <Route component={NoMatch} />
+                </Switch>
+            </div>}
         </BrowserRouter>
       </div>
     );

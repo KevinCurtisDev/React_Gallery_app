@@ -1,5 +1,6 @@
 import React from 'react';
 
+//This component is rendered when there is no matching URL found
 const NoMatch = () => {
     return (
         <div>
